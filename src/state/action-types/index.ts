@@ -8,5 +8,5 @@ import {
     removeFavourite
   }
   
-  export type Action = | AuthUserAction
+  export type Action =  | AuthUserAction
   

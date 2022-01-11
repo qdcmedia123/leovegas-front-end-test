@@ -1,12 +1,7 @@
-import { Action, ActionTypes } from '../action-types';
+import {ActionTypes } from '../action-types';
 
 export interface AuthUser {
-    isAuthenticated: boolean;
-    token?: string | null;
-}
-
-export interface AddFavorite {
-    favourites?: object
+    favourites?: object;
 }
 
 export interface AuthUserAction {
@@ -14,10 +9,6 @@ export interface AuthUserAction {
     payload: AuthUser
 }
 
-export interface AddFavouriteAction {
-    type: ActionTypes.addFavourite,
-    payload: AddFavorite
-}
 
 export const authUser = (data: AuthUser) => {
     return {
@@ -26,9 +17,3 @@ export const authUser = (data: AuthUser) => {
     }
 }
 
-export const addFavourite = (data: AddFavorite) => {
-    return {
-        type: ActionTypes.addFavourite,
-        payload: data
-    }
-}
