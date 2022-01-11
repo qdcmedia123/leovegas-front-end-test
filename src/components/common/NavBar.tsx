@@ -11,14 +11,14 @@ const NavBar = () => {
                     <div className="menu-btn__burger"></div>
                 </div>
             </label>
-            <input type="checkbox" name="" id="btn" />
+            <input type="checkbox" name="" id="btn"  className="checkbox-mobile"/>
             <ul>
                 <li>
                     <label htmlFor="btn-1" className="show" id="label-btn-1">Profile
                         <i className="fa fa-angle-right rotate-trans ss-fa"></i>
                     </label>
                     <a href="!#">Profile </a>
-                    <input type="checkbox" name="" id="btn-1" />
+                    <input type="checkbox" name="" id="btn-1" className="checkbox-mobile"/>
                     <ul>
                         <li>
                             <a href="!#">Favirotes</a>

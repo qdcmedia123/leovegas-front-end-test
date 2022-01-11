@@ -1,0 +1,49 @@
+.section9 {
+    margin-top: 2rem;
+  
+    .search {
+      max-width: pxToRem(635);
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      &__input {
+        height: pxToRem(64);
+        flex: 1;
+        border: 1px solid $dark-green;
+        padding: 0.8rem 2rem;
+        font-size: pxToRem(18);
+        line-height: pxToRem(22);
+        /* identical to box height */
+        border-radius: 5px 0 0px 5px;
+       
+  
+        color: #262626;
+  
+       
+        &::placeholder {
+          opacity: 0.35;
+        }
+        &:focus {
+          border: 1px solid $dark-green;
+          outline: none;
+        }
+      }
+      &__btn {
+        background: $dark-green;
+        padding: 0.8rem 2rem;
+        font-weight: 600;
+        font-size: pxToRem(20);
+        line-height: pxToRem(30);
+        /* identical to box height */
+        border: none;
+        color: #ffffff;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        width: 127px;
+        height: pxToRem(64);
+      }
+    }
+  }
+  
