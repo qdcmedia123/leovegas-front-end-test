@@ -1,10 +1,20 @@
 import React from 'react';
-import './App.css';
+import { Provider } from 'react-redux';
+import { Route, Routes, Navigate } from "react-router-dom";
 import 'scss/main.scss';
+import Search from 'components/search';
+import { store } from 'state';
 
 function App() {
   return (
-    <div>Hello World</div>
+    <div>
+      <Provider store={store}>
+        <Routes>
+          <Route path="/" element={<Search />}></Route>
+        </Routes>
+      </Provider>
+
+    </div>
   );
 }
 
