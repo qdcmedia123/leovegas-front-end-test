@@ -1,0 +1,236 @@
+nav {
+ 
+  background-color: $dark-green;
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    margin-right: 40px;
+    position: relative;
+    vertical-align: baseline;
+    ul {
+      right: -40px;
+      position: absolute;
+      top: 90px;
+      opacity: 0;
+      visibility: hidden;
+      transition: top 0.3s opacity 1s;
+      border-top: 3px solid $light-color;
+      ul {
+        border-top: none;
+        li {
+          position: relative;
+          top: -70px;
+          left: 150px;
+        }
+      }
+      li {
+        position: relative;
+        margin: 0px;
+        width: 150px;
+        float: none;
+        display: list-item;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        a {
+          line-height: 50px;
+          &:hover {
+            color: #ccdede;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+    li {
+      &:hover {
+        > ul {
+          opacity: 1;
+          visibility: visible;
+          top: 70px;
+        }
+      }
+      display: flex;
+      display: inline-block;
+      background: $dark-green;
+      margin: 0 5px;
+      a {
+        color: $light-color;
+        text-decoration: none;
+        line-height: 70px;
+        font-size: 18px;
+        padding: 8px 0 8px 15px;
+      }
+    }
+  }
+  .logo {
+    float: left;
+    color: $light-color;
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 37px;
+    padding: 8px 0 8px 15px;
+    
+  }
+}
+.ls-fa {
+  margin-left: 40px;
+  font-size: 15px;
+}
+.show {
+  display: none;
+}
+input {
+  display: none;
+}
+.icon {
+  display: none;
+}
+
+@media all and (max-width: 968px) {
+  .icon {
+    display: block;
+    color: $light-color;
+    position: absolute;
+    right: 40px;
+    line-height: 70px;
+    font-size: 26px;
+  }
+  nav {
+    ul {
+      margin-right: 0px;
+      float: left;
+      li {
+        display: block;
+        width: 100%;
+      }
+      ul {
+        li {
+          display: block;
+          width: 100%;
+          border-bottom: none;
+        }
+        top: 70px;
+        position: static;
+        border-top: none;
+        float: none;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        ul {
+          li {
+            position: static;
+          }
+          a {
+            padding-left: 80px;
+          }
+        }
+        a {
+          padding-left: 40px;
+        }
+      }
+      a {
+        &:hover {
+          box-shadow: none;
+        }
+      }
+    }
+    .logo {
+      padding: 15px 30px;
+      width: 100%;
+    }
+  }
+  .show {
+    display: block;
+    color: $light-color;
+    font-size: 18px;
+    padding: 0 0 0 20px;
+    line-height: 70px;
+    cursor: pointer;
+  }
+  .show + a {
+    display: none;
+  }
+  ul {
+    display: none;
+  }
+  [id^="btn"] {
+    &:checked + ul {
+      display: block;
+    }
+  }
+}
+.ss-fa {
+  margin-left: 0.5rem;
+  transition: all 0.5s ease-in-out;
+}
+.sub-open {
+  transform: rotate(90deg);
+}
+.menu-btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  transform: scale(0.7);
+}
+.menu-btn__burger {
+  width: 50px;
+  height: 6px;
+  background: $light-color;
+  box-shadow: 0 2px 5px rgba(225, 101, 47, 0.2);
+  transition: all 0.5s ease-in-out;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 6px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(225, 101, 47, 0.2);
+    transition: all 0.5s ease-in-out;
+    transform: translateY(-16px);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 6px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(225, 101, 47, 0.2);
+    transition: all 0.5s ease-in-out;
+    transform: translateY(16px);
+  }
+}
+.menu-btn.open {
+  .menu-btn__burger {
+    transform: translateX(-50px);
+    background: transparent;
+    box-shadow: none;
+    &::before {
+      transform: rotate(45deg) translate(35px, -35px);
+    }
+    &::after {
+      transform: rotate(-45deg) translate(35px, 35px);
+    }
+  }
+}
+ul {
+  ul {
+    li {
+      &:hover {
+        i.rotate-trans {
+          transition: all 0.5s ease-in-out;
+          transform: rotate(-90deg);
+        }
+      }
+    }
+  }
+}

@@ -4,10 +4,12 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import 'scss/main.scss';
 import Search from 'components/search';
 import { store } from 'state';
+import NavBar from 'components/common/NavBar';
 
 function App() {
   return (
-    <div>
+    <div className = "container">
+      <NavBar/>
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<Search />}></Route>
