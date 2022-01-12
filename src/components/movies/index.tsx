@@ -1,11 +1,14 @@
+// @ts-nocheck
 import React from 'react';
 import Card from 'components/common/Card';
+import { ResponseInterface } from './index.interface';
 
-const Movies = (movies: any) => {
-    
+
+const Movie: React.FC<ResponseInterface> = ({ results }) => {
     return (
         <section className="movies-sections">
-            <Card />
+            
+            <Card results = {results.results}/>
             <div className="pagination">
                 <ul className="pagination-3">
                     <li className="page-number prev"><a href="!#">&laquo;</a></li>
@@ -25,4 +28,4 @@ const Movies = (movies: any) => {
 
 
 
-export default Movies;
+export default Movie;
