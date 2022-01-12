@@ -1,4 +1,9 @@
-export interface ResponseInterface {
+export interface ExtraProps {
+  setPagerRequest?: any;
+  activePage?: number;
+  sePageHander?: any;
+}
+export interface ResponseInterface extends ExtraProps {
   page: number;
   results: MovieInterface[];
   total_pages: number;

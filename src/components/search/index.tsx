@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import Movies from 'components/movies';
 import LoadingSVG from 'assets/img/loading.svg';
@@ -13,8 +13,9 @@ export const Search: React.FC<{}> = ({ }) => {
     const [error, setError] = useState<null | string>(null);
     const [query, setQuery] = useState<string>('');
     const [page, setPage] = useState<number>(1);
+    const [pagerRequest, setPagerRequest] = useState(false); 
 
-    const searchHandler = async (e: any) => {
+    const searchHandler = useCallback(async () => {
         setLoading(true);
         const escapeQuery = query.replace(/[ ]/g, '+');
         try {
@@ -33,7 +34,40 @@ export const Search: React.FC<{}> = ({ }) => {
             throw new Error(err.response.message);
 
         }
+    }, [page, query]);
+
+    useCallback(async (e: any) => {
+        setLoading(true);
+        const escapeQuery = query.replace(/[ ]/g, '+');
+        try {
+            const apiEndPoint = endPoints(process.env.REACT_APP_API_KEY as string, page, escapeQuery).search;
+            const fetchMovies = await fetch(apiEndPoint);
+            let jsonData = [];
+            if (fetchMovies.ok && fetchMovies.status === 200) {
+                jsonData = await fetchMovies.json();
+                setMovies(jsonData);
+            } else {
+                setError('Something went wrong')
+            }
+            setLoading(false);
+        } catch (err: any) {
+            setLoading(false);
+            throw new Error(err.response.message);
+
+        }
+    }, [page, query]);
+
+    const sePageHander = (i:number) => {
+        setPage(i)
+        setPagerRequest(true);
     }
+    
+    useEffect(() => {
+        if(pagerRequest) {
+            searchHandler();
+        }
+    }, [page, pagerRequest, searchHandler])
+    
     return (
         <><div className="section9">
             {error}
@@ -51,7 +85,7 @@ export const Search: React.FC<{}> = ({ }) => {
 
             {movies.results && movies.results.length > 0 &&
                 // @ts-ignore
-                <Movies results={movies} />}
+                <Movies results={movies} activePage={page} sePageHander ={sePageHander}/>}
 
             <div className="main-message">
                 {movies.results && movies.results.length === 0 && <div>No data found</div>}

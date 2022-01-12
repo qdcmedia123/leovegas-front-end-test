@@ -4,23 +4,25 @@ import Card from 'components/common/Card';
 import { ResponseInterface } from './index.interface';
 
 
-const Movie: React.FC<ResponseInterface> = ({ results }) => {
+const Movie: React.FC<ResponseInterface> = ({ results, activePage, sePageHander }) => {
+    const { page, total_pages } = results;
     return (
         <section className="movies-sections">
-            
-            <Card results = {results.results}/>
-            <div className="pagination">
+
+            <Card results={results.results} />
+            {total_pages > 1 && <div className="pagination">
                 <ul className="pagination-3">
                     <li className="page-number prev"><a href="!#">&laquo;</a></li>
-                    <li className="page-number active"><a href="!#">1</a></li>
-                    <li className="page-number"><a href="!#">2</a></li>
-                    <li className="page-number"><a href="!#">3</a></li>
-                    <li className="page-number"><a href="!#">4</a></li>
-                    <li className="page-number"><a href="!#">5</a></li>
-                    <li className="page-number"><a href="!#">6</a></li>
+                    {Array.from(Array(total_pages), (e, i) => {
+                        return <li
+                            key={i}
+                            className={`page-number ${activePage === i + 1 ? 'active' : ''}`}
+                        >
+                            <span onClick={() => sePageHander(i + 1)}>{i + 1}</span></li>
+                    })}
                     <li className="page-number prev"><a href="!#">&raquo;</a></li>
                 </ul>
-            </div>
+            </div>}
         </section>
 
     );
