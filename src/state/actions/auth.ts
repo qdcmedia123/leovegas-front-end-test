@@ -1,19 +1,35 @@
-import {ActionTypes } from '../action-types';
+import { ActionTypes } from "../action-types";
+import { MovieInterface } from "components/movies/index.interface";
 
-export interface AuthUser {
-    favourites?: object;
+// Will update this one
+export interface WatchLetter {
+  watchLatter?: any;
+}
+
+export interface AuthUser extends WatchLetter {
+  favourites: any;
 }
 
 export interface AuthUserAction {
-    type: ActionTypes.authUser,
-    payload: AuthUser
+  type: ActionTypes.authUser;
+  payload: AuthUser;
 }
 
+export interface WatchLetterAction {
+  type: ActionTypes.authUser;
+  payload: AuthUser;
+}
 
 export const authUser = (data: AuthUser) => {
-    return {
-        type: ActionTypes.authUser,
-        payload: data
-    }
-}
+  return {
+    type: ActionTypes.authUser,
+    payload: data,
+  };
+};
 
+export const watchLatter = (data: any) => {
+  return {
+    type: ActionTypes.watchLatter,
+    payload: data,
+  };
+};

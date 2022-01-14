@@ -4,16 +4,18 @@ import Movies from 'components/movies';
 import LoadingSVG from 'assets/img/loading.svg';
 import { endPoints } from 'config/apis';
 import { ResponseInterface } from '../movies/index.interface';
+import movieMock from 'data/movies.json';
 
 
 
 export const Search: React.FC<{}> = ({ }) => {
-    const [movies, setMovies] = useState<any>({});
+    const [movies, setMovies] = useState<any>(movieMock);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<null | string>(null);
     const [query, setQuery] = useState<string>('');
     const [page, setPage] = useState<number>(1);
     const [pagerRequest, setPagerRequest] = useState(false); 
+    console.log(movies)
 
     const searchHandler = useCallback(async () => {
         setLoading(true);

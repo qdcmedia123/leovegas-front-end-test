@@ -4,8 +4,7 @@ import {
    
   export enum ActionTypes {
     authUser,
-    addFavourite,
-    removeFavourite
+    watchLatter
   }
   
   export type Action =  | AuthUserAction
