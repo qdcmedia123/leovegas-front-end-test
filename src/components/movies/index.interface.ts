@@ -4,10 +4,10 @@ export interface ExtraProps {
   sePageHander?: any;
 }
 export interface ResponseInterface extends ExtraProps {
-  page: number;
+  page?: number;
   results: MovieInterface[];
-  total_pages: number;
-  total_results: number;
+  total_pages?: number;
+  total_results?: number;
 }
 
 export interface MovieInterface {

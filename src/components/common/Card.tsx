@@ -1,14 +1,14 @@
-import React, { useMemo } from 'react';
-import movie from 'assets/img/group.png'
-import Star from 'assets/img/Star.svg';
-import Heart from 'assets/img/heart-diactive.svg';
 import HeartActive from 'assets/img/heart-active.svg';
-import { getGenreName } from 'functions/getGenerNameById';
+import Heart from 'assets/img/heart-diactive.svg';
+import Star from 'assets/img/Star.svg';
+import watchLetterActive from 'assets/img/watch-letter-active.svg';
+import watchLetterDeActiv from 'assets/img/watch-letter-deactive.svg';
 import { MovieInterface } from 'components/movies/index.interface';
+import { getGenreName } from 'functions/getGenerNameById';
 import { useActions } from 'hooks/use-actions';
 import { useTypedSelector } from 'hooks/use-typed-selector';
-import watchLetterActive from 'assets/img/watch-letter-active.svg';
-import watchLetterDeActiv from 'assets/img/watch-letter-active.svg';
+
+import React from 'react';
 
 
 interface CardInterface {
@@ -17,7 +17,9 @@ interface CardInterface {
 
 const Card: React.FC<CardInterface> = ({ results }) => {
     const state = useTypedSelector((state) => state);
-    console.log(state)
+    const { auth: { favourites, watchLatter: watchlatter } } = state;
+    console.log('state', state)
+    
     const { authUser, watchLatter } = useActions();
     const dispatchToFavMovies = async (movie: any) => {
         await authUser(movie);
@@ -27,10 +29,10 @@ const Card: React.FC<CardInterface> = ({ results }) => {
     }
 
     // Check in main store if movie in fave exists 
-    const isMovieFav = (id: number) => {
-        const { auth: { favourites } } = state;
-        if (favourites.length > 0) {
-            const alreadyFav = favourites.filter((movie: MovieInterface) => {
+    const isMovieInProfile = (id: number, data:MovieInterface[]) => {
+       
+        if (data.length > 0) {
+            const alreadyFav = data.filter((movie: MovieInterface) => {
                 if (movie.id === id) {
                     return true;
                 }
@@ -41,7 +43,7 @@ const Card: React.FC<CardInterface> = ({ results }) => {
         return false;
     };
 
-    console.log(isMovieFav(550))
+    
 
     return (
         <div className="movies">
@@ -82,12 +84,17 @@ const Card: React.FC<CardInterface> = ({ results }) => {
                 </div>
                 <div className="item reviews">
                     {/*  */}
-                    {isMovieFav(movie.id) ? 
+                    {isMovieInProfile(movie.id, favourites) ? 
                        <img src={HeartActive} alt="" onClick={() => dispatchToFavMovies(movie)} /> : 
                        <img src={Heart} alt="" onClick={() => dispatchToFavMovies(movie)} />}
 
                        <>
-                       <img src={watchLetterDeActiv} alt="" onClick={() => dispatchToWatchLetter(movie)}/>
+                       {isMovieInProfile(movie.id, watchlatter) ? 
+                       <img src={watchLetterActive} alt="" onClick={() => dispatchToWatchLetter(movie)} /> : 
+                       <img src={watchLetterDeActiv} alt="" onClick={() => dispatchToWatchLetter(movie)} />}
+
+
+                       
                        </>
                 </div>
             </div>

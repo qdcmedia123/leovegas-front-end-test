@@ -8,6 +8,8 @@ import NavBar from 'components/common/NavBar';
 import Footer from 'components/common/Footer';
 
 const SearchLazy = lazy(() => import('components/search'));
+const FaviroteLazy = lazy(() => import('components/favirote'));
+const WatchLatterLazy = lazy(() => import('components/watchlatter'));
 
 
 function App() {
@@ -20,8 +22,18 @@ function App() {
             <Route path="/" element={<Suspense fallback={<div>Loading.....</div>}>
               <SearchLazy />
             </Suspense>}>
-              
             </Route>
+
+            <Route path="/favirotes" element={<Suspense fallback={<div>Loading.....</div>}>
+              <FaviroteLazy />
+            </Suspense>}>
+              </Route>
+
+              <Route path="/watchlatter" element={<Suspense fallback={<div>Loading.....</div>}>
+              <WatchLatterLazy />
+            </Suspense>}>
+              </Route>
+
           </Routes>
         </Provider>
       </main>

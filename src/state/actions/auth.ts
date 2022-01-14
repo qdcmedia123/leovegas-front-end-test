@@ -1,5 +1,4 @@
 import { ActionTypes } from "../action-types";
-import { MovieInterface } from "components/movies/index.interface";
 
 // Will update this one
 export interface WatchLetter {

@@ -1,6 +1,6 @@
-import { Action, ActionTypes } from "../action-types";
-import { AuthUser, WatchLetter } from "../actions";
 import { isMovieFav } from "functions/getMovieById";
+import { Action, ActionTypes } from "../action-types";
+import { AuthUser } from "../actions";
 const initialState = { favourites: [], watchLatter: [] };
 
 export const authReducer = (state: AuthUser = initialState, action: Action) => {
