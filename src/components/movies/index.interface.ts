@@ -2,6 +2,8 @@ export interface ExtraProps {
   setPagerRequest?: any;
   activePage?: number;
   sePageHander?: any;
+  setToPrePage?:any;
+  setToNextPage?:any;
 }
 export interface ResponseInterface extends ExtraProps {
   page?: number;

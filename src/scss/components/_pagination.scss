@@ -1,12 +1,25 @@
 .pagination {
+    max-width: 200px;
+    margin: 0 auto;
     display: flex;
+    align-items: center;
+	.prev-page:active ~ .pagination-3 {
+		
+		transform: translateX(130px);
+	}
+	
 	ul {
 		margin: 2em auto;
 		padding-left: 0;
 		list-style-type: none;
 		max-width: 200px;
 		overflow-x: scroll;
+		overflow-y: hidden;
 		height: 4rem;
+		display: flex;
+		align-items: center;
+		scroll-behavior: smooth;
+		
 	}
 }
 .page-number {
@@ -20,16 +33,17 @@
 .pagination-3 {
 	.page-number {
 		margin: 0.25em;
-		span {
+		a {
 			padding: 0.125em;
+			color: #16425b;
 		}
 	}
 	.active {
 		padding: 4px 8px;
-		border-radius: 100%;
+		border-radius: 50%;
 		background-color: #16425b;
 		color: white !important;
-		span {
+		a {
 			color: white;
 		}
 	}

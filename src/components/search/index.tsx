@@ -1,10 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useTypedSelector } from 'hooks/use-typed-selector';
-import Movies from 'components/movies';
 import LoadingSVG from 'assets/img/loading.svg';
+import Movies from 'components/movies';
 import { endPoints } from 'config/apis';
-import { ResponseInterface } from '../movies/index.interface';
 import movieMock from 'data/movies.json';
+import React, { useCallback, useEffect, useState } from 'react';
 
 
 
@@ -14,7 +12,7 @@ export const Search: React.FC<{}> = ({ }) => {
     const [error, setError] = useState<null | string>(null);
     const [query, setQuery] = useState<string>('');
     const [page, setPage] = useState<number>(1);
-    const [pagerRequest, setPagerRequest] = useState(false); 
+    const [pagerRequest, setPagerRequest] = useState(false);
     console.log(movies)
 
     const searchHandler = useCallback(async () => {
@@ -59,17 +57,31 @@ export const Search: React.FC<{}> = ({ }) => {
         }
     }, [page, query]);
 
-    const sePageHander = (i:number) => {
+    const sePageHander = (i: number, e: any) => {
+        e.preventDefault();
         setPage(i)
         setPagerRequest(true);
     }
-    
+
     useEffect(() => {
-        if(pagerRequest) {
+        if (pagerRequest) {
             searchHandler();
         }
     }, [page, pagerRequest, searchHandler])
-    
+
+    const setToPrePage = (e: any) => {
+        e.preventDefault();
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    }
+    const setToNextPage = () => {
+        if (page < movies.total_pages) {
+            setPage(page + 1);
+        }
+
+    }
+
     return (
         <><div className="section9">
             {error}
@@ -84,15 +96,22 @@ export const Search: React.FC<{}> = ({ }) => {
                 <button className="search__btn" onClick={searchHandler}>Search</button>
             </div>
         </div>
+            <section className="movies-sections">
+                {movies.results && movies.results.length > 0 &&
+                    // @ts-ignore
+                    <Movies
+                        results={movies}
+                        activePage={page}
+                        sePageHander={sePageHander}
+                        setToPrePage={setToPrePage}
+                        setToNextPage={setToNextPage}
+                    />}
+                <div className="main-message">
+                    {!loading && movies.results && movies.results.length === 0 && <div>No data found</div>}
+                    {loading && <img src={LoadingSVG} alt="" />}
+                </div>
+            </section>
 
-            {movies.results && movies.results.length > 0 &&
-                // @ts-ignore
-                <Movies results={movies} activePage={page} sePageHander ={sePageHander}/>}
-
-            <div className="main-message">
-                {movies.results && movies.results.length === 0 && <div>No data found</div>}
-                {loading && <img src={LoadingSVG} alt="" />}
-            </div>
         </>
     );
 }

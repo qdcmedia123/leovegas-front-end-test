@@ -72,6 +72,12 @@ nav {
     font-weight: 600;
     line-height: 37px;
     padding: 8px 0 8px 15px;
+
+    span {
+      a {
+        color: $light-color;
+      }
+    }
     
   }
 }
