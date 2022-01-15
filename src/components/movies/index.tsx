@@ -18,7 +18,7 @@ const Movie: React.FC<ResponseInterface> = ({ results, activePage, sePageHander,
                             <a href={`#pagi` + i + 1} onClick={(e) => sePageHander(i + 1, e)} id={'pagi' + i + 1}>{i + 1}</a></li>
                     })}
                 </ul>
-                <span className="page-number prev"><span onClick={setToNextPage}>&raquo;</span></span>
+                <span className="page-number prev next-pagination"><span onClick={setToNextPage}>&raquo;</span></span>
             </div>}
         </>
     );

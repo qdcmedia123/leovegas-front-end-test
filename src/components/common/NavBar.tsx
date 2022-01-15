@@ -6,7 +6,7 @@ const NavBar = () => {
         <nav>
             <div className="logo">
                 <span><Link to="/">Cinema X</Link></span>
-            </div>
+            </div> 
             <label htmlFor="btn" className="icon">
                 <div className={`menu-btn ${open ? 'open' : ''}`} onClick={() => setOpen(prevState => !prevState)}>
                     <div className="menu-btn__burger"></div>
@@ -18,15 +18,15 @@ const NavBar = () => {
                     <label htmlFor="btn-1" className="show" id="label-btn-1">Profile
                         <i className="fa fa-angle-right rotate-trans ss-fa"></i>
                     </label>
-                    <Link to="/">Profile</Link>
+                    <Link to="/" id="homeId">Profile</Link>
 
                     <input type="checkbox" name="" id="btn-1" className="checkbox-mobile" />
-                    <ul>
+                    <ul id = "navUl">
                         <li>
                             <Link to="/favirotes">Favirotes</Link>
                         </li>
                         <li>
-                            <Link to="/watchlatter">Watch Later</Link>
+                            <Link to="/watchlatter">Watch Latter</Link>
                         </li>
                     </ul>
                 </li>

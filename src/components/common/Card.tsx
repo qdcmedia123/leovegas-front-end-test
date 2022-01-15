@@ -85,13 +85,13 @@ const Card: React.FC<CardInterface> = ({ results }) => {
                 <div className="item reviews">
                     {/*  */}
                     {isMovieInProfile(movie.id, favourites) ? 
-                       <img src={HeartActive} alt="" onClick={() => dispatchToFavMovies(movie)} /> : 
-                       <img src={Heart} alt="" onClick={() => dispatchToFavMovies(movie)} />}
+                       <img className = "review-svg active" src={HeartActive} alt="" onClick={() => dispatchToFavMovies(movie)} /> : 
+                       <img className = "review-svg deactive" src={Heart} alt="" onClick={() => dispatchToFavMovies(movie)} />}
 
                        <>
                        {isMovieInProfile(movie.id, watchlatter) ? 
-                       <img src={watchLetterActive} alt="" onClick={() => dispatchToWatchLetter(movie)} /> : 
-                       <img src={watchLetterDeActiv} alt="" onClick={() => dispatchToWatchLetter(movie)} />}
+                       <img className = "watchl-svg active" src={watchLetterActive} alt="" onClick={() => dispatchToWatchLetter(movie)} /> : 
+                       <img className = "watchl-svg deactive" src={watchLetterDeActiv} alt="" onClick={() => dispatchToWatchLetter(movie)} />}
 
 
                        

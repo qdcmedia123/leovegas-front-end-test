@@ -1,13 +1,12 @@
 import LoadingSVG from 'assets/img/loading.svg';
 import Movies from 'components/movies';
 import { endPoints } from 'config/apis';
-import movieMock from 'data/movies.json';
 import React, { useCallback, useEffect, useState } from 'react';
 
 
 
-export const Search: React.FC<{}> = ({ }) => {
-    const [movies, setMovies] = useState<any>(movieMock);
+export const Search: React.FC<{}> = () => {
+    const [movies, setMovies] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<null | string>(null);
     const [query, setQuery] = useState<string>('');
