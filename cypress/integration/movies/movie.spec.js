@@ -10,7 +10,7 @@ it('Logo should be visible', () => {
 }); 
 
 it('profile navbar should be visible with profile favirote and watch', () => {
-    cy.get('ul li a').should('have.text', 'ProfileFavirotesWatch Later');
+    cy.get('ul li a').should('have.text', 'ProfileFavirotesWatch Latter');
 });
 
 it('hover the mouse on profile and menu should be visible', () => {
