@@ -8,7 +8,6 @@ import { getGenreName } from 'functions/getGenerNameById';
 import { useActions } from 'hooks/use-actions';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import React from 'react';
-
 interface CardInterface {
     results: MovieInterface[]
 }

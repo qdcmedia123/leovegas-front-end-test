@@ -1,16 +1,10 @@
-import { authReducer  } from './auth';
-import {AuthUser} from '../actions';
-import { combineReducers } from 'redux';
-
-
+import { authReducer } from "./auth";
+import { AuthUser } from "../actions";
+import { combineReducers } from "redux";
 export interface StoreState {
-    auth: AuthUser,
+  auth: AuthUser;
 }
-
-
 export const reducers = combineReducers<StoreState>({
-    auth: authReducer,
-    
+  auth: authReducer,
 });
-
 export type RootState = ReturnType<typeof reducers>;

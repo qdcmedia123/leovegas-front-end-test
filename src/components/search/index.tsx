@@ -1,29 +1,42 @@
+import React, { useCallback, useState } from 'react';
 import LoadingSVG from 'assets/img/loading.svg';
 import Movies from 'components/movies';
 import { endPoints } from 'config/apis';
-import React, { useCallback, useEffect, useState } from 'react';
-
-
+import { useActions } from 'hooks/use-actions';
+import { useTypedSelector } from 'hooks/use-typed-selector';
 
 export const Search: React.FC<{}> = () => {
-    const [movies, setMovies] = useState<any>([]);
+    const state = useTypedSelector((state) => state);
+    const { auth: { movies, query: globalQuery, page } } = state;
+
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<null | string>(null);
-    const [query, setQuery] = useState<string>('');
-    const [page, setPage] = useState<number>(1);
-    const [pagerRequest, setPagerRequest] = useState(false);
+    const [query, setQuery] = useState<string>(globalQuery);
+
+    const {
+        fetchMovies: fetchMoviesAction,
+        setQuery: setQueryAction,
+        setPageAction
+    } = useActions();
+
 
     const searchHandler = useCallback(async (page) => {
+        if (!query) {
+            console.log('query is null')
+            return;
+        }
         setLoading(true);
         const escapeQuery = query.replace(/[ ]/g, '+');
         try {
             const apiEndPoint = endPoints(process.env.REACT_APP_API_KEY as string, page, escapeQuery).search;
+
+            console.log('apiEndPoint', apiEndPoint)
             const fetchMovies = await fetch(apiEndPoint);
             let jsonData = [];
             if (fetchMovies.ok && fetchMovies.status === 200) {
                 jsonData = await fetchMovies.json();
-                setMovies(jsonData);
-                
+                fetchMoviesAction(jsonData);
+
             } else {
                 setError('Something went wrong')
             }
@@ -33,32 +46,33 @@ export const Search: React.FC<{}> = () => {
             throw new Error(err.response.message);
 
         }
-    }, [query]);
+    }, [query, fetchMoviesAction]);
 
     const sePageHander = (i: number, e: any) => {
         e.preventDefault();
-        setPage(i)
-        setPagerRequest(true);
+        setPageAction(i)
         searchHandler(i);
     }
-  
 
     const setToPrePage = (e: any) => {
         e.preventDefault();
-        if (page > 1) {
-            setPage(page - 1);
+        if (page && page > 1) {
+            setPageAction(page - 1);
         }
     }
+
     const setToNextPage = () => {
-        if (page < movies.total_pages) {
-            setPage(page + 1);
+        if (page && page < movies.total_pages) {
+            setPageAction(page + 1);
         }
 
     }
-    const onEnterKey = (e:any) => {
-        if(e.key === 'Enter') {
+
+    const onEnterKey = (e: any) => {
+        if (e.key === 'Enter') {
             searchHandler(page);
-            setPage(1);
+            setPageAction(1);
+            setQueryAction(query);
         }
     }
 
@@ -70,17 +84,18 @@ export const Search: React.FC<{}> = () => {
                     placeholder="Search here..."
                     type="text"
                     className="search__input"
-                    value={query}
+                    value={query === "" && globalQuery !== "" ? globalQuery : query}
                     onChange={e => setQuery(e.target.value)}
                     onKeyDown={onEnterKey}
-                    
+
                 />
-                <button 
-                className="search__btn" 
-                onClick={() => {
-                    searchHandler(1);
-                    setPage(1);
-                }} >Search</button>
+                <button
+                    className="search__btn"
+                    onClick={() => {
+                        searchHandler(1);
+                        setPageAction(1)
+                        setQueryAction(query);
+                    }} >Search</button>
             </div>
         </div>
             <section className="movies-sections">
