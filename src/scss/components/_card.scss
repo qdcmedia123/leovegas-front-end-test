@@ -46,11 +46,17 @@
         font-weight: 600;
       }
       .genres {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(4rem, 5rem));
+        grid-column-gap: .2rem;
+        grid-row-gap: .5rem;
         justify-content: center;
-        column-gap: 0.5rem;
 
         .genre {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          white-space: nowrap;
           font-size: 9px;
           line-height: 18px;
           /* identical to box height, or 200% */
@@ -59,7 +65,7 @@
           border-radius: 1rem;
           background-color: #4b5940;
           font-weight: 500;
-          padding: 0.1rem 0.2rem;
+          padding: 0.1rem 0.3rem;
         }
       }
     }
