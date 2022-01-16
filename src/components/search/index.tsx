@@ -12,9 +12,8 @@ export const Search: React.FC<{}> = () => {
     const [query, setQuery] = useState<string>('');
     const [page, setPage] = useState<number>(1);
     const [pagerRequest, setPagerRequest] = useState(false);
-    console.log(movies)
 
-    const searchHandler = useCallback(async () => {
+    const searchHandler = useCallback(async (page) => {
         setLoading(true);
         const escapeQuery = query.replace(/[ ]/g, '+');
         try {
@@ -24,6 +23,7 @@ export const Search: React.FC<{}> = () => {
             if (fetchMovies.ok && fetchMovies.status === 200) {
                 jsonData = await fetchMovies.json();
                 setMovies(jsonData);
+                
             } else {
                 setError('Something went wrong')
             }
@@ -33,40 +33,15 @@ export const Search: React.FC<{}> = () => {
             throw new Error(err.response.message);
 
         }
-    }, [page, query]);
-
-    useCallback(async (e: any) => {
-        setLoading(true);
-        const escapeQuery = query.replace(/[ ]/g, '+');
-        try {
-            const apiEndPoint = endPoints(process.env.REACT_APP_API_KEY as string, page, escapeQuery).search;
-            const fetchMovies = await fetch(apiEndPoint);
-            let jsonData = [];
-            if (fetchMovies.ok && fetchMovies.status === 200) {
-                jsonData = await fetchMovies.json();
-                setMovies(jsonData);
-            } else {
-                setError('Something went wrong')
-            }
-            setLoading(false);
-        } catch (err: any) {
-            setLoading(false);
-            throw new Error(err.response.message);
-
-        }
-    }, [page, query]);
+    }, [query]);
 
     const sePageHander = (i: number, e: any) => {
         e.preventDefault();
         setPage(i)
         setPagerRequest(true);
+        searchHandler(i);
     }
-
-    useEffect(() => {
-        if (pagerRequest) {
-            searchHandler();
-        }
-    }, [page, pagerRequest, searchHandler])
+  
 
     const setToPrePage = (e: any) => {
         e.preventDefault();
@@ -80,6 +55,12 @@ export const Search: React.FC<{}> = () => {
         }
 
     }
+    const onEnterKey = (e:any) => {
+        if(e.key === 'Enter') {
+            searchHandler(page);
+            setPage(1);
+        }
+    }
 
     return (
         <><div className="section9">
@@ -91,8 +72,15 @@ export const Search: React.FC<{}> = () => {
                     className="search__input"
                     value={query}
                     onChange={e => setQuery(e.target.value)}
+                    onKeyDown={onEnterKey}
+                    
                 />
-                <button className="search__btn" onClick={searchHandler}>Search</button>
+                <button 
+                className="search__btn" 
+                onClick={() => {
+                    searchHandler(1);
+                    setPage(1);
+                }} >Search</button>
             </div>
         </div>
             <section className="movies-sections">
