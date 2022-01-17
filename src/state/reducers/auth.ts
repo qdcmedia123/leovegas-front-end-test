@@ -1,8 +1,14 @@
-// @ts-nocheck
 import { isMovieFav } from "functions/getMovieById";
 import { Action, ActionTypes } from "../action-types";
 import { AuthUser } from "../actions";
-const initialState = { favourites: [], watchLatter: [], movies:  [], query: '', page: 1};
+
+const initialState = {
+  favourites: [],
+  watchLatter: [],
+  movies: [],
+  query: "",
+  page: 1,
+};
 
 export const authReducer = (state: AuthUser = initialState, action: Action) => {
   switch (action.type) {
@@ -19,13 +25,10 @@ export const authReducer = (state: AuthUser = initialState, action: Action) => {
         ...state,
         favourites,
       };
-    
     case ActionTypes.watchLatter:
       let watchLatter = state.watchLatter;
       let { id: mId } = action.payload as any;
-
       let watchLetterExists = isMovieFav(mId, watchLatter);
-
       if (watchLetterExists) {
         watchLatter = watchLatter.filter((movie: any) => movie.id !== mId);
       } else {
@@ -36,11 +39,11 @@ export const authReducer = (state: AuthUser = initialState, action: Action) => {
         watchLatter,
       };
     case ActionTypes.fetchMovies:
-      return {...state, movies: action.payload}
-    case ActionTypes.query: 
-      return {...state, query: action.payload}
-    case ActionTypes.setPage: 
-      return {...state, page: action.payload}
+      return { ...state, movies: action.payload };
+    case ActionTypes.query:
+      return { ...state, query: action.payload };
+    case ActionTypes.setPage:
+      return { ...state, page: action.payload };
     default:
       return state;
   }

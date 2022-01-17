@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import LoadingSVG from 'assets/img/loading.svg';
 import Movies from 'components/movies';
 import { endPoints } from 'config/apis';
@@ -11,7 +11,7 @@ export const Search: React.FC<{}> = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<null | string>(null);
-    const [query, setQuery] = useState<string>(globalQuery);
+    const [query, setQuery] = useState<string>('');
 
     const {
         fetchMovies: fetchMoviesAction,
@@ -29,8 +29,6 @@ export const Search: React.FC<{}> = () => {
         const escapeQuery = query.replace(/[ ]/g, '+');
         try {
             const apiEndPoint = endPoints(process.env.REACT_APP_API_KEY as string, page, escapeQuery).search;
-
-            console.log('apiEndPoint', apiEndPoint)
             const fetchMovies = await fetch(apiEndPoint);
             let jsonData = [];
             if (fetchMovies.ok && fetchMovies.status === 200) {
@@ -75,7 +73,12 @@ export const Search: React.FC<{}> = () => {
             setQueryAction(query);
         }
     }
-
+    
+    useEffect(() => {
+        if(query === "" && globalQuery !== "") {
+            setQuery(globalQuery);
+        }
+    }, [])
     return (
         <><div className="section9">
             {error}
@@ -84,8 +87,10 @@ export const Search: React.FC<{}> = () => {
                     placeholder="Search here..."
                     type="text"
                     className="search__input"
-                    value={query === "" && globalQuery !== "" ? globalQuery : query}
-                    onChange={e => setQuery(e.target.value)}
+                    value={query}
+                    onChange={e => {
+                        setQuery(e.target.value);
+                    }}
                     onKeyDown={onEnterKey}
 
                 />

@@ -1,4 +1,10 @@
-import { AuthUserAction } from "../actions";
+import {
+  AuthUserAction,
+  WatchLetterAction,
+  FetchMoviesAction,
+  SetQueryAction,
+  SetPageAction
+} from "../actions";
 export enum ActionTypes {
   authUser,
   watchLatter,
@@ -6,4 +12,10 @@ export enum ActionTypes {
   query,
   setPage,
 }
-export type Action = AuthUserAction;
+
+export type Action =
+  | AuthUserAction
+  | WatchLetterAction
+  | FetchMoviesAction
+  | SetQueryAction
+  | SetPageAction;
