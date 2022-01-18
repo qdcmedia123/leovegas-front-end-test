@@ -8,7 +8,6 @@ export const Favirote: React.FC<{}> = () => {
     return (
         <>
             {favourites && favourites.length > 0 &&
-                // @ts-ignore
                 <Movies results={{ results: favourites }} />}
             <div className="main-message">
                 {favourites && favourites.length === 0 && <div>No data found</div>}

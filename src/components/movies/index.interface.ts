@@ -12,6 +12,11 @@ export interface ResponseInterface extends ExtraProps {
   total_results?: number;
 }
 
+
+export interface RestInterface  extends ExtraProps {
+  results: ResponseInterface
+}
+
 export interface MovieInterface {
   adult: boolean;
   backdrop_path?: string;

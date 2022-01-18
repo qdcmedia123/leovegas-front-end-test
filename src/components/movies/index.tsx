@@ -1,13 +1,13 @@
-// @ts-nocheck
 import React from 'react';
 import Card from 'components/common/Card';
-import { ResponseInterface } from './index.interface';
-const Movie: React.FC<ResponseInterface> = ({ results, activePage, sePageHander, setToPrePage, setToNextPage }) => {
+import { RestInterface } from './index.interface';
+
+const Movie: React.FC<RestInterface> = ({ results, activePage, sePageHander, setToPrePage, setToNextPage }) => {
     const { total_pages } = results;
     return (
         <>
             <Card results={results.results} />
-            {total_pages > 1 && <div className="pagination">
+            {total_pages && total_pages > 1 && <div className="pagination">
                 <span className="page-number prev prev-page" ><a href="!#" onClick={setToPrePage} >&laquo;</a></span>
                 <ul className="pagination-3">
                     {Array.from(Array(total_pages), (e, i) => {

@@ -30,10 +30,12 @@ export const Search: React.FC<{}> = () => {
         try {
             const apiEndPoint = endPoints(process.env.REACT_APP_API_KEY as string, page, escapeQuery).search;
             const fetchMovies = await fetch(apiEndPoint);
+            
             let jsonData = [];
             if (fetchMovies.ok && fetchMovies.status === 200) {
                 jsonData = await fetchMovies.json();
                 fetchMoviesAction(jsonData);
+                console.log(jsonData)
 
             } else {
                 setError('Something went wrong')
@@ -56,12 +58,14 @@ export const Search: React.FC<{}> = () => {
         e.preventDefault();
         if (page && page > 1) {
             setPageAction(page - 1);
+            searchHandler(page - 1);
         }
     }
 
     const setToNextPage = () => {
         if (page && page < movies.total_pages) {
             setPageAction(page + 1);
+            searchHandler(page + 1);
         }
 
     }
@@ -78,7 +82,7 @@ export const Search: React.FC<{}> = () => {
         if(query === "" && globalQuery !== "") {
             setQuery(globalQuery);
         }
-    }, [])
+    },[])
     return (
         <><div className="section9">
             {error}
@@ -105,13 +109,13 @@ export const Search: React.FC<{}> = () => {
         </div>
             <section className="movies-sections">
                 {movies.results && movies.results.length > 0 &&
-                    // @ts-ignore
                     <Movies
                         results={movies}
                         activePage={page}
                         sePageHander={sePageHander}
                         setToPrePage={setToPrePage}
                         setToNextPage={setToNextPage}
+                        
                     />}
                 <div className="main-message">
                     {!loading && movies.results && movies.results.length === 0 && <div>No data found</div>}
