@@ -1,5 +1,8 @@
 import { Action, ActionTypes } from "../action-types";
 
+///////////////////////////////////////
+// DATA INTERFACE TYPE
+///////////////////////////////////////
 export interface Movies {
   movies?: any;
 }
@@ -18,6 +21,16 @@ export interface AuthUser extends WatchLetter, Movies {
   query?: any;
   page?: any;
 }
+
+///////////////////////////////////////
+// DATA INTERFACE TYPE ENDS
+///////////////////////////////////////
+
+
+///////////////////////////////////////
+// ACTION INTERFACE START, ALL PAYLOAD WILL BE CONSUMENT
+// WHICH IS WRITTEN ABOVE INTERFACE
+///////////////////////////////////////
 
 export interface AuthUserAction {
   type: ActionTypes.authUser;
@@ -43,7 +56,15 @@ export interface SetPageAction {
   payload: SetPage
 }
 
+///////////////////////////////////////
+// ACTION TYPE START ENDS
+///////////////////////////////////////
 
+
+///////////////////////////////////////
+// ACTION FUNCTION WHILLE WILL
+// WILL BE USED IN COMPONENT TO DISPATCH THE 
+///////////////////////////////////////
 
 export const authUser = (data: AuthUser) => {
   return {
@@ -63,6 +84,7 @@ export const fetchMovies = (data: any) => {
     payload: data,
   };
 };
+
 export const setQuery = (data: string) => {
   return {
     type: ActionTypes.query,
